@@ -1,0 +1,57 @@
+// prisma/schema.prisma
+
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum status {
+STUDENT
+MANAGER
+}
+
+model Users{
+id Int @id @default(autoincrement())
+email String @unique
+password String
+createdAt DateTime @default(now())
+updatedAt DateTime @updatedAt
+
+Questions Questions[]
+Answers Answers[]
+@@map("Users")
+}
+
+model Questions{
+id Int @id @default(autoincrement())
+userId Int @map("user_id")
+title String
+content String @db.text
+status status @default(STUDENT)
+createdAt DateTime @default(now())
+updatedAt DateTime @updatedAt
+
+Users Users @relation(fields:[userId],references:[id],onDelete:Cascade)
+
+Answers Answers?
+@@map("Questions")
+}
+
+model Answers{
+id Int @id @default(autoincrement())
+userId Int @map("user_id")
+content string? @db.text
+is_question boolean
+
+
+Users Users @relation(fields:[userId],references:[id],onDelete:Cascade)
+
+@@map("Answers)
+}
