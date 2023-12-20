@@ -30,29 +30,29 @@ Answers Answers[]
 }
 
 model Questions{
-id Int @id @default(autoincrement())
+id Int @id @default(autoincrement()) @map("id")
 userId Int @map("user_id")
-title String
-content String @db.text
-status status @default(STUDENT)
-createdAt DateTime @default(now())
-updatedAt DateTime @updatedAt
+title String @map("title")
+content String @db.Text @map("content")
+status status @default(STUDENT) @map("status")
+createdAt DateTime @default(now()) @map("createdAt")
+updatedAt DateTime @updatedAt @map("updatedAt")
 
 Users Users @relation(fields:[userId],references:[id],onDelete:Cascade)
 
-Answers Answers?
+Answers Answers[]
 @@map("Questions")
 }
 
 model Answers{
-id Int @id @default(autoincrement())
+id Int @id @default(autoincrement()) @map("id")
 userId Int @map("user_id")
 questionId Int @map("question_id")
-content string? @db.text
-is_question boolean
+content String @db.Text @map("content")
+isQuestion Boolean @default(false) @map("is_question")
 
 Users Users @relation(fields:[userId],references:[id],onDelete:Cascade)
 Questions Questions @relation(fields:[questionId],references:[id],onDelete:Cascade)
 
-@@map("Answers)
+@@map("Answers")
 }
