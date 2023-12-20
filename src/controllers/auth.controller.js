@@ -4,10 +4,9 @@ export class AuthController {
   }
 
   // 회원가입
-  signIn = async (req, res, next) => {
+  signUp = async (req, res, next) => {
     try {
       const { email, password, passwordConfirm } = req.body;
-      const user = findUserByEmailAndPassword(email, password);
       vaildateUserInfo(email, password, passwordConfirm);
       const createUser = await this.authService.createUser(
         email,

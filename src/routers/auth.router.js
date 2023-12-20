@@ -13,4 +13,4 @@ const authController = new AuthController(authService);
 
 // 회원가입
 
-router.post("/sign-in", authController.signIn);
+router.post("/sign-up", authController.signUp);
