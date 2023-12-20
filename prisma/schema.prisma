@@ -47,11 +47,12 @@ Answers Answers?
 model Answers{
 id Int @id @default(autoincrement())
 userId Int @map("user_id")
+questionId Int @map("question_id")
 content string? @db.text
 is_question boolean
 
-
 Users Users @relation(fields:[userId],references:[id],onDelete:Cascade)
+Questions Questions @relation(fields:[questionId],references:[id],onDelete:Cascade)
 
 @@map("Answers)
 }
