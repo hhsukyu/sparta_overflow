@@ -5,6 +5,8 @@ export class UserController {
 
   putuser = async (req, res, next) => {
     try {
+      const userId = res.locals.user;
+      console.log(userId);
       const { id } = req.params;
       const { status } = req.body;
       const putUser = await this.userService.updateUser(id, status);

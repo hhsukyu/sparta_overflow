@@ -58,7 +58,7 @@ export class AuthService {
   createAccessToken = async (user) => {
     const accessToken = jwt.sign(
       // JWT 데이터
-      { userId: user.userId },
+      { userId: user.id },
       // 비밀키
       process.env.JWT_ACCESS_TOKEN_SECRET,
       { expiresIn: "12h" }
