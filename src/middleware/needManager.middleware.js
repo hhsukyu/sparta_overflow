@@ -1,7 +1,7 @@
 import { prisma } from "../utils/prisma/index.js";
 
 export default async function (req, res, next) {
-  const user = req.user.id;
+  const { id } = req.params;
   const findUserManager = await prisma.users.findUnique({
     where: { status: manager },
   });
