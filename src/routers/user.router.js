@@ -11,6 +11,6 @@ const userRepository = new UserRepository(prisma);
 const userService = new UserService(userRepository);
 const userController = new UserController(userService);
 
-router.get("", needManger, userController.putuser);
+router.get("/", needManger, userController.putuser);
 
 export default router;
