@@ -29,17 +29,13 @@ export class AuthService {
   };
 
   // hassPassword
-  hashedPassword = async (password) => {
-    return bcrypt.hashSync(password, PASSWORD_HASH_SALT_ROUNDS);
+  hassedPassword = async (password) => {
+    return bcrypt.hashSync(password, 10);
   };
 
   // user 생성
-  createUser = async () => {
-    const createdUser = await this.authRepository.createUser({
-      email,
-      password: hashedPassword,
-      passwordConfirm,
-    });
-    return createdUser;
+  createUser = async (email, hassPassword) => {
+    const user = await this.authRepository.createdUser(email, hassPassword);
+    return user;
   };
 }
