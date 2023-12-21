@@ -15,11 +15,20 @@ export default async function (req, res, next) {
 
   try {
     const { userId } = jwt.verify(authValue, SECRET_KEY);
-    console.log(userId);
-    await prisma.users.findUnique({ where: { id: userId } }).then((user) => {
-      res.locals.user = user;
-      next();
+    const user = await prisma.users.findUnique({
+      where: { id: userId },
     });
+    if (user.status === "STUDENT") {
+      return res.status(401).send({
+        errorMessage: "매니저만 수정할 수 있습니다.",
+      });
+    } else if (user.status === "MANAGER") {
+      return res.status(400).send({
+        errorMessage: "이미 매니저 입니다.",
+      });
+    }
+    res.locals.user = user;
+    next();
   } catch (error) {
     res.status(400).send({
       errorMessage: "로그인 후 이용 가능한 기능입니다.",
