@@ -35,8 +35,12 @@ export class AuthService {
   };
 
   // user 생성
-  createUser = async (email, hassPassword) => {
-    const user = await this.authRepository.createdUser(email, hassPassword);
+  createUser = async (email, hassPassword, status) => {
+    const user = await this.authRepository.createdUser(
+      email,
+      hassPassword,
+      status
+    );
     return user;
   };
 

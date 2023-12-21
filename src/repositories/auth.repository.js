@@ -10,9 +10,9 @@ export class AuthRepository {
   };
 
   // 유저 생성
-  createdUser = async (email, hassPassword) => {
+  createdUser = async (email, hassPassword, status) => {
     return await this.prisma.users.create({
-      data: { email, password: hassPassword },
+      data: { email, password: hassPassword, status },
     });
   };
 }
