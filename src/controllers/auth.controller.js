@@ -24,4 +24,22 @@ export class AuthController {
   };
 
   // 로그인
+  signIn = async (req, res, next) => {
+    try {
+      const { email, password } = req.body;
+      const user = await this.authService.findByUser(email, password);
+
+      const createAccessToken = await this.authService.createAccessToken(user);
+      const authorization = createAccessToken;
+
+      res.header("authorization", `Bearer ${authorization}`);
+
+      return res.status(200).send({
+        message: "로그인 성공했습니다.",
+        authorization: authorization,
+      });
+    } catch (err) {
+      next(err);
+    }
+  };
 }

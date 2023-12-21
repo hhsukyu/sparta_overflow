@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import { PASSWORD_HASH_SALT_ROUNDS } from "../constants/security.constatnt.js";
 
 export class AuthService {
@@ -37,5 +38,27 @@ export class AuthService {
   createUser = async (email, hassPassword) => {
     const user = await this.authRepository.createdUser(email, hassPassword);
     return user;
+  };
+
+  // 유저 찾기 이메일 비밀번호
+  findByUser = async (email, password) => {
+    const user = await this.authRepository.findUser(email);
+    const passwordConfirm = await bcrypt.compare(password, user.password);
+    if (!user || !passwordConfirm)
+      throw new Error(
+        "존재하지 않는 이메일이거나 비밀번호가 일치하지 않습니다."
+      );
+    return user;
+  };
+  // 토큰 만들기
+  createAccessToken = async (user) => {
+    const accessToken = jwt.sign(
+      // JWT 데이터
+      { userId: user.userId },
+      // 비밀키
+      process.env.JWT_ACCESS_TOKEN_SECRET,
+      { expiresIn: "12h" }
+    );
+    return accessToken;
   };
 }
