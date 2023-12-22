@@ -6,7 +6,6 @@ export class UsersController {
   putuser = async (req, res, next) => {
     try {
       const userId = res.locals.user;
-      console.log("1", userId);
       const { id } = req.params;
       const { status } = req.body;
       // const checkStatus = await this.usersService.findUserByStatus(id, status);

@@ -22,6 +22,16 @@ export class QuestionsService {
       title,
       content
     );
+    if (userId.status === "MANAGER") {
+      return {
+        id: createQuestion.id,
+        userId: createQuestion.userId,
+        title: createQuestion.title,
+        author: userId.status,
+        createdAt: createQuestion.createdAt,
+        updatedAt: createQuestion.updatedAt,
+      };
+    }
     return createQuestion;
   };
 }
