@@ -27,4 +27,11 @@ export class QuestionsRepository {
       },
     });
   };
+
+  // 질문글 작성하기
+  createdQuestion = async (userId, title, content) => {
+    return await this.prisma.questions.create({
+      data: { userId, title, content },
+    });
+  };
 }

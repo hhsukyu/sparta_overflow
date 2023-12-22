@@ -27,4 +27,22 @@ export class QuestionsController {
       next(err);
     }
   };
+
+  // 질문글 작성하기
+  postQuestion = async (req, res, next) => {
+    try {
+      const userId = res.locals.user.id;
+      const { title, content } = req.body;
+      const questions = await this.questionsService.createQuestion(
+        userId,
+        title,
+        content
+      );
+      return res
+        .status(200)
+        .send({ message: "질문이 작성되었습니다.", data: { questions } });
+    } catch (err) {
+      next(err);
+    }
+  };
 }
