@@ -9,9 +9,9 @@ import needManger from "../middleware/needManager.middleware.js";
 const router = express.Router();
 
 const usersRepository = new UsersRepository(prisma);
-const usersService = new UsersService(userRepository);
-const usersController = new UsersController(userService);
+const usersService = new UsersService(usersRepository);
+const usersController = new UsersController(usersService);
 
-router.put("/:id", needManger, userController.putuser);
+router.put("/:id", needManger, usersController.putuser);
 
 export default router;
