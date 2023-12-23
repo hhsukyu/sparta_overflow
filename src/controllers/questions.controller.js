@@ -6,20 +6,23 @@ export class QuestionsController {
   // 질문글 리스트 API (검색기능 X) 페이징 20개
   getAllQuestions = async (req, res, next) => {
     try {
-      const questions = await this.questionsService.getQuestions();
+      const userId = res.locals.user;
+      const questions = await this.questionsService.getQuestions(userId);
       return res.status(200).send(questions);
     } catch (err) {
       next(err);
     }
   };
-
   // 질문글 리스트 API 검색 기능 포함 완성 페이징 20개
   getQuestionsByKeyword = async (req, res, next) => {
     try {
       const { keyword } = req.query;
+      console.log(keyword);
+      const userId = res.locals.user;
       // const toupperKeyword = keyword.toUpperCase();
       const encodedKeyword = encodeURI(keyword);
       const questions = await this.questionsService.findAllQuestions(
+        userId,
         encodedKeyword
       );
       return res.status(200).send(questions);
@@ -32,11 +35,12 @@ export class QuestionsController {
   postQuestion = async (req, res, next) => {
     try {
       const userId = res.locals.user;
-      const { title, content } = req.body;
+      const { title, content, author } = req.body;
       const questions = await this.questionsService.createQuestion(
         userId,
         title,
-        content
+        content,
+        author
       );
       return res
         .status(200)

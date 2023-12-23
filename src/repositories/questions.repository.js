@@ -17,21 +17,22 @@ export class QuestionsRepository {
   findAllQuestionsByKeyword = async (encodedKeyword) => {
     return await this.prisma.questions.findMany({
       take: 20,
-      where: {
-        keyword: {
-          contains: decodeURI(encodedKeyword),
-        },
-      },
       orderBy: {
         createdAt: "desc",
+      },
+      where: {
+        OR: [
+          { title: { contains: decodeURI(encodedKeyword) } },
+          { content: { contains: decodeURI(encodedKeyword) } },
+        ],
       },
     });
   };
 
   // 질문글 작성하기
-  createdQuestion = async (userId, title, content) => {
+  createdQuestion = async (userId, title, content, author) => {
     return await this.prisma.questions.create({
-      data: { userId: userId.id, title, content },
+      data: { userId: userId.id, title, content, author },
     });
   };
 }
