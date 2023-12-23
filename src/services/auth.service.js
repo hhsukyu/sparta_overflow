@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { PASSWORD_HASH_SALT_ROUNDS } from "../constants/security.constatnt.js";
+// import { PASSWORD_HASH_SALT_ROUNDS } from "../constants/security.constatnt.js";
 
 export class AuthService {
   constructor(authRepository) {
