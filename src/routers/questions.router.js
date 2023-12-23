@@ -4,6 +4,7 @@ import { QuestionsController } from "../controllers/questions.controller.js";
 import { QuestionsService } from "../services/questions.service.js";
 import { QuestionsRepository } from "../repositories/questions.repository.js";
 import needSign from "../middleware/needSignIn.middleware.js";
+import needSignInMiddleware from "../middleware/needSignIn.middleware.js";
 
 const router = express.Router();
 
@@ -18,4 +19,8 @@ router.get("/keyword", needSign, questionsController.getQuestionsByKeyword);
 
 // 질문글 작성하기
 router.post("/", needSign, questionsController.postQuestion);
+
+// 질문글 수정하기
+router.put("/:questionId", needSign, questionsController.putQuestion);
+
 export default router;

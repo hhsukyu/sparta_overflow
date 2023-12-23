@@ -35,4 +35,19 @@ export class QuestionsRepository {
       data: { userId: userId.id, title, content, author },
     });
   };
+
+  // 유저찾기
+  findUserByQuestionId = async (questionId) => {
+    return await this.prisma.questions.findUnique({
+      where: { id: +questionId },
+    });
+  };
+
+  // 수정하기
+  updatedQuestion = async (userId, questionId, title, content) => {
+    return await this.prisma.questions.update({
+      where: { id: +questionId, userId: userId.id },
+      data: { title, content },
+    });
+  };
 }

@@ -49,4 +49,30 @@ export class QuestionsController {
       next(err);
     }
   };
+
+  // 질문글 수정하기
+  putQuestion = async (req, res, next) => {
+    try {
+      const userId = res.locals.user;
+      const { questionId } = req.params;
+      const { title, content } = req.body;
+      await this.questionsService.validateQuestion(
+        userId,
+        questionId,
+        title,
+        content
+      );
+      const questions = await this.questionsService.updateQuestion(
+        userId,
+        questionId,
+        title,
+        content
+      );
+      return res
+        .status(200)
+        .send({ message: "질문이 수정되었습니다.", data: { questions } });
+    } catch (err) {
+      next(err);
+    }
+  };
 }

@@ -1,3 +1,5 @@
+import { status } from "@prisma/client";
+
 export class QuestionsService {
   constructor(questionsRepository) {
     this.questionsRepository = questionsRepository;
@@ -49,5 +51,31 @@ export class QuestionsService {
       author
     );
     return createQuestion;
+  };
+
+  // 질문글 수정 유효성
+  validateQuestion = async (userId, questionId, title, content) => {
+    const user = await this.questionsRepository.findUserByQuestionId(
+      questionId
+    );
+    if (user.userId !== userId.id) {
+      throw new Error("작성자가 일치 하지 않습니다.");
+    }
+    if (!title) {
+      throw new Error("수정할 제목을 입력해주세요");
+    }
+    if (!content) {
+      throw new Error("수정할 내용을 입력해주세요");
+    }
+  };
+  // 질문글 수정하기
+  updateQuestion = async (userId, questionId, title, content) => {
+    const updateQuestion = await this.questionsRepository.updatedQuestion(
+      userId,
+      questionId,
+      title,
+      content
+    );
+    return { ...updateQuestion, title, content };
   };
 }
