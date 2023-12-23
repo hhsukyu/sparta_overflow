@@ -50,4 +50,11 @@ export class QuestionsRepository {
       data: { title, content },
     });
   };
+
+  // 삭제하기
+  deletedQuestion = async (questionId) => {
+    return await this.prisma.questions.delete({
+      where: { id: +questionId },
+    });
+  };
 }

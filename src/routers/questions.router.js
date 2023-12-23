@@ -23,4 +23,6 @@ router.post("/", needSign, questionsController.postQuestion);
 // 질문글 수정하기
 router.put("/:questionId", needSign, questionsController.putQuestion);
 
+// 질문글 삭제하기(본인, 매니저)
+router.delete("/:questionId", needSign, questionsController.deleteQuestion);
 export default router;

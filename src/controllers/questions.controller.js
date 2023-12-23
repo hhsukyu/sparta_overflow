@@ -56,13 +56,13 @@ export class QuestionsController {
       const userId = res.locals.user;
       const { questionId } = req.params;
       const { title, content } = req.body;
-      await this.questionsService.validateQuestion(
+      await this.questionsService.validateQuestionInfo(
         userId,
         questionId,
         title,
         content
       );
-      const questions = await this.questionsService.updateQuestion(
+      const question = await this.questionsService.updateQuestion(
         userId,
         questionId,
         title,
@@ -70,7 +70,20 @@ export class QuestionsController {
       );
       return res
         .status(200)
-        .send({ message: "질문이 수정되었습니다.", data: { questions } });
+        .send({ message: "질문이 수정되었습니다.", data: { question } });
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  // 질문글 삭제하기
+  deleteQuestion = async (req, res, next) => {
+    try {
+      const userId = res.locals.user;
+      const { questionId } = req.params;
+      await this.questionsService.validateQuestionByUserId(userId, questionId);
+      await this.questionsService.deleteQuestion(userId, questionId);
+      return res.status(200).send({ message: "질문이 삭제되었습니다." });
     } catch (err) {
       next(err);
     }

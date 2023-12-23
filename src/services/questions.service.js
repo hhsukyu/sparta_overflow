@@ -54,7 +54,7 @@ export class QuestionsService {
   };
 
   // 질문글 수정 유효성
-  validateQuestion = async (userId, questionId, title, content) => {
+  validateQuestionInfo = async (userId, questionId, title, content) => {
     const user = await this.questionsRepository.findUserByQuestionId(
       questionId
     );
@@ -77,5 +77,25 @@ export class QuestionsService {
       content
     );
     return { ...updateQuestion, title, content };
+  };
+
+  // 질문글 삭제 유효성
+  validateQuestionByUserId = async (userId, questionId) => {
+    const user = await this.questionsRepository.findUserByQuestionId(
+      questionId
+    );
+    if (!user) {
+      throw new Error("질문글이 존재하지 않습니다.");
+    }
+  };
+  // 질문글 삭제
+  deleteQuestion = async (userId, questionId) => {
+    const user = await this.questionsRepository.findUserByQuestionId(
+      questionId
+    );
+    if (userId.status === "MANAGER" || user.userId === userId.id) {
+      return await this.questionsRepository.deletedQuestion(questionId);
+    }
+    throw new Error("접근할 수 없습니다.");
   };
 }
