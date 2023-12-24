@@ -14,4 +14,6 @@ const asksController = new AsksController(asksService);
 // 답변글 리스트 API
 router.get("/", needSign, asksController.getAllAsks);
 
+// 답변글 작성 API
+router.post("/", needSign, asksController.postAsk);
 export default router;

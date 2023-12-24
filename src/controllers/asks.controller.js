@@ -13,4 +13,18 @@ export class AsksController {
       next(err);
     }
   };
+
+  // 답변글 작성 API
+  postAsk = async (req, res, next) => {
+    try {
+      const userId = res.locals.user;
+      const { content } = req.body;
+      const ask = await this.questionsService.createQuestion(userId, content);
+      return res
+        .status(200)
+        .send({ message: "질문이 작성되었습니다.", data: { ask } });
+    } catch (err) {
+      next(err);
+    }
+  };
 }

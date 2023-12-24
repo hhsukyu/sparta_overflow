@@ -35,7 +35,7 @@ export class QuestionsController {
   postQuestion = async (req, res, next) => {
     try {
       const userId = res.locals.user;
-      const { title, content, author } = req.body;
+      const { content, author } = req.body;
       const questions = await this.questionsService.createQuestion(
         userId,
         title,
