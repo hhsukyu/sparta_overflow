@@ -1,5 +1,3 @@
-import { status } from "@prisma/client";
-
 export class QuestionsService {
   constructor(questionsRepository) {
     this.questionsRepository = questionsRepository;
