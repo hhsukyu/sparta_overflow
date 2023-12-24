@@ -21,7 +21,7 @@ model Users{
 id Int @id @default(autoincrement())
 email String @unique
 password String
-author String @map("author")
+nickname String @unique
 status status @default(STUDENT) @map("status")
 createdAt DateTime @default(now())
 updatedAt DateTime @updatedAt
@@ -36,6 +36,7 @@ id Int @id @default(autoincrement()) @map("id")
 userId Int @map("user_id")
 title String @map("title")
 content String @db.Text @map("content")
+author String
 createdAt DateTime @default(now()) @map("createdAt")
 updatedAt DateTime @updatedAt @map("updatedAt")
 
@@ -50,6 +51,7 @@ id Int @id @default(autoincrement()) @map("id")
 userId Int @map("user_id")
 questionId Int @map("question_id")
 content String @db.Text @map("content")
+author String
 isQuestion Boolean @default(false) @map("is_question")
 
 Users Users @relation(fields:[userId],references:[id],onDelete:Cascade)

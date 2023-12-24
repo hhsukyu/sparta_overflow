@@ -8,8 +8,8 @@ export class AuthService {
   }
 
   // 유효성 검사
-  vaildateUserInfo = async (email, password, passwordConfirm) => {
-    if (!email || !password) {
+  vaildateUserInfo = async (email, password, passwordConfirm, nickname) => {
+    if (!email || !password || !nickname) {
       throw new Error("빈칸 없이 모두 작성 해주세요");
     }
     if (password.length < 6) {
@@ -35,11 +35,12 @@ export class AuthService {
   };
 
   // user 생성
-  createUser = async (email, hassPassword, status) => {
+  createUser = async (email, hassPassword, status, nickname) => {
     const user = await this.authRepository.createdUser(
       email,
       hassPassword,
-      status
+      status,
+      nickname
     );
     return user;
   };

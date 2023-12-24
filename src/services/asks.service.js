@@ -1,4 +1,4 @@
-export class asksService {
+export class AsksService {
   constructor(asksRepository) {
     this.asksRepository = asksRepository;
   }
