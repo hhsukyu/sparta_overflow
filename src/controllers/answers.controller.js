@@ -36,4 +36,24 @@ export class AnswersController {
       next(err);
     }
   };
+
+  // 답변글 수정 API
+  putAnswer = async (req, res, next) => {
+    try {
+      const userId = res.locals.user;
+      const { answerId } = req.params;
+      const { content } = req.body;
+      await this.answersService.validateAnswer(userId, answerId, content);
+      const answer = await this.answersService.updateAnswer(
+        userId,
+        answerId,
+        content
+      );
+      return res
+        .status(200)
+        .send({ message: "답변이 수정되었습니다.", data: { answer } });
+    } catch (err) {
+      next(err);
+    }
+  };
 }

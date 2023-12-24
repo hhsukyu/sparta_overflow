@@ -25,4 +25,17 @@ export class AnswersRepository {
       },
     });
   };
+
+  // 답변찾기
+  findAnswerById = async (answerId) => {
+    return await this.prisma.answers.findUnique({ where: { id: +answerId } });
+  };
+
+  // 수정하기
+  updatedAnswer = async (userId, answerId, content) => {
+    return await this.prisma.answers.update({
+      where: { id: +answerId, userId: userId.id },
+      data: { content },
+    });
+  };
 }

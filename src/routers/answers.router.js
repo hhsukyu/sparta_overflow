@@ -17,5 +17,7 @@ router.get("/:questionId", needSign, answersController.getAllAnswers);
 // 답변글 작성 API
 router.post("/:questionId", needSign, answersController.postAnswer);
 
-// 답변글
+// 답변글 수정 API
+router.put("/:answerId", needSign, answersController.putAnswer);
+
 export default router;
