@@ -35,7 +35,8 @@ export class QuestionsController {
   postQuestion = async (req, res, next) => {
     try {
       const userId = res.locals.user;
-      const { title, content, author } = req.body;
+      const author = userId.nickname;
+      const { title, content } = req.body;
       const questions = await this.questionsService.createQuestion(
         userId,
         title,
@@ -82,7 +83,7 @@ export class QuestionsController {
       const userId = res.locals.user;
       const { questionId } = req.params;
       await this.questionsService.validateQuestionByUserId(userId, questionId);
-      await this.questionsService.deleteQuestion(userId, questionId);
+      await this.questionsService.deleteMyQuestion(userId, questionId);
       return res.status(200).send({ message: "질문이 삭제되었습니다." });
     } catch (err) {
       next(err);

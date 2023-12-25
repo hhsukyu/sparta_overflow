@@ -6,18 +6,20 @@ export class AuthController {
   // 회원가입
   signUp = async (req, res, next) => {
     try {
-      const { email, password, passwordConfirm, status } = req.body;
+      const { email, password, passwordConfirm, nickname, status } = req.body;
       const vaildateUser = await this.authService.vaildateUserInfo(
         email,
         password,
-        passwordConfirm
+        passwordConfirm,
+        nickname
       );
       const user = await this.authService.existedUser(email);
       const hassPassword = await this.authService.hassedPassword(password);
       const postUser = await this.authService.createUser(
         email,
         hassPassword,
-        status
+        status,
+        nickname
       );
       return res
         .status(200)
