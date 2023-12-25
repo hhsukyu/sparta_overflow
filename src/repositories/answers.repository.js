@@ -38,4 +38,11 @@ export class AnswersRepository {
       data: { content },
     });
   };
+
+  // 삭제하기
+  deletedAnswer = async (answerId) => {
+    return await this.prisma.answers.delete({
+      where: { id: +answerId },
+    });
+  };
 }

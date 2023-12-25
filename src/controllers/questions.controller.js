@@ -83,7 +83,7 @@ export class QuestionsController {
       const userId = res.locals.user;
       const { questionId } = req.params;
       await this.questionsService.validateQuestionByUserId(userId, questionId);
-      await this.questionsService.deleteQuestion(userId, questionId);
+      await this.questionsService.deleteMyQuestion(userId, questionId);
       return res.status(200).send({ message: "질문이 삭제되었습니다." });
     } catch (err) {
       next(err);

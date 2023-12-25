@@ -87,7 +87,7 @@ export class QuestionsService {
     }
   };
   // 질문글 삭제
-  deleteQuestion = async (userId, questionId) => {
+  deleteMyQuestion = async (userId, questionId) => {
     const user = await this.questionsRepository.findUserByQuestionId(
       questionId
     );

@@ -56,4 +56,17 @@ export class AnswersController {
       next(err);
     }
   };
+
+  // 답변글 삭제 API
+  deleteAnswer = async (req, res, next) => {
+    try {
+      const userId = res.locals.user;
+      const { answerId } = req.params;
+      await this.answersService.validateAnswerByAnswerId(answerId);
+      await this.answersService.deleteMyAnswer(userId, answerId);
+      return res.status(200).send({ message: "답변이 삭제되었습니다." });
+    } catch (err) {
+      next(err);
+    }
+  };
 }

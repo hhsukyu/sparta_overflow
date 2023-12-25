@@ -20,4 +20,7 @@ router.post("/:questionId", needSign, answersController.postAnswer);
 // 답변글 수정 API
 router.put("/:answerId", needSign, answersController.putAnswer);
 
+// 답변글 삭제 API
+router.delete("/:answerId", needSign, answersController.deleteAnswer);
+
 export default router;
