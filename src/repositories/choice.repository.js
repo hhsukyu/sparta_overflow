@@ -14,7 +14,13 @@ export class ChoiceRepository {
     });
   };
   // 답변글 채택 API
-  updatedSelectChoice = async (userId, answerId) => {
+  updatedSelectChoice = async (userId, questionId, answerId) => {
+    await this.prisma.answers.updateMany({
+      where: { questionId: +questionId, userId: +userId.id },
+      data: {
+        isQuestion: false,
+      },
+    });
     return await this.prisma.answers.update({
       where: { id: +answerId, userId: +userId.id },
       data: {

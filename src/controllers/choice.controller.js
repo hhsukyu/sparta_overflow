@@ -11,6 +11,7 @@ export class ChoiceController {
       await this.choiceService.vaildateChoice(questionId, answerId);
       const selectChoice = await this.choiceService.updateSelectChoice(
         userId,
+        questionId,
         answerId
       );
       return res
