@@ -36,10 +36,11 @@ export class QuestionsRepository {
     });
   };
 
-  // 유저찾기
-  findUserByQuestionId = async (questionId) => {
-    return await this.prisma.questions.findUnique({
+  // 질문 찾기
+  findQuestionByQuestionId = async (questionId) => {
+    return await this.prisma.questions.findMany({
       where: { id: +questionId },
+      include: { Answers: true },
     });
   };
 

@@ -53,11 +53,14 @@ export class QuestionsService {
 
   // 질문글 수정 유효성
   validateQuestionInfo = async (userId, questionId, title, content) => {
-    const user = await this.questionsRepository.findUserByQuestionId(
+    const question = await this.questionsRepository.findQuestionByQuestionId(
       questionId
     );
-    if (user.userId !== userId.id) {
+    if (question[0].userId !== userId.id) {
       throw new Error("작성자가 일치 하지 않습니다.");
+    }
+    if (question[0].Answers.length > 0) {
+      throw new Error("답변글이 존재하므로 수정할 수 없습니다.");
     }
     if (!title) {
       throw new Error("수정할 제목을 입력해주세요");
