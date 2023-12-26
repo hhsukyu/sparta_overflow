@@ -22,6 +22,7 @@ export class AnswersController {
       const author = userId.nickname;
       const { questionId } = req.params;
       const { content, isQuestion } = req.body;
+      await this.answersService.validatePostAnswer(content);
       const answer = await this.answersService.createAnswer(
         userId,
         questionId,
