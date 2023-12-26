@@ -3,9 +3,12 @@ export class ChoiceService {
     this.choiceRepository = choiceRepository;
   }
   // 답변 채택 유효성 API
-  vaildateChoice = async (questionId, answerId) => {
+  vaildateChoice = async (userId, questionId, answerId) => {
     const answer = await this.choiceRepository.findAnswer(answerId);
     const question = await this.choiceRepository.findQuestion(questionId);
+    if (question.userId !== userId.id) {
+      throw new Error("작성자가 아니므로 채택할 수 없습니다.");
+    }
     if (!answer || !question) {
       throw new Error("접근할 수 없습니다.");
     }

@@ -8,7 +8,7 @@ export class ChoiceController {
     try {
       const userId = res.locals.user;
       const { questionId, answerId } = req.params;
-      await this.choiceService.vaildateChoice(questionId, answerId);
+      await this.choiceService.vaildateChoice(userId, questionId, answerId);
       const selectChoice = await this.choiceService.updateSelectChoice(
         userId,
         questionId,
@@ -27,7 +27,7 @@ export class ChoiceController {
     try {
       const userId = res.locals.user;
       const { questionId, answerId } = req.params;
-      await this.choiceService.vaildateChoice(questionId, answerId);
+      await this.choiceService.vaildateChoice(userId, questionId, answerId);
       const cancelChoice = await this.choiceService.updateCancelChoice(
         userId,
         answerId
