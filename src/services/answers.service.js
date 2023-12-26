@@ -61,8 +61,12 @@ export class AnswersService {
   // 답변글 삭제 유효성
   validateAnswerByAnswerId = async (answerId) => {
     const answer = await this.answersRepository.findAnswerById(answerId);
+    console.log(answer);
     if (!answer) {
       throw new Error("답변글이 존재하지 않습니다.");
+    }
+    if (answer.isQuestion === true) {
+      throw new Error("채택된 답변글은 삭제 할 수 없습니다.");
     }
   };
 
