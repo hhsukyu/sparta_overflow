@@ -11,7 +11,12 @@ export class ChoiceService {
     }
   };
   // 답변 채택 API
-  updateChoice = async (userId, answerId) => {
-    return await this.choiceRepository.updatedChoice(userId, answerId);
+  updateSelectChoice = async (userId, answerId) => {
+    return await this.choiceRepository.updatedSelectChoice(userId, answerId);
+  };
+
+  // 답변 채택 취소 API
+  updateCancelChoice = async (userId, answerId) => {
+    return await this.choiceRepository.updatedCancelChoice(userId, answerId);
   };
 }

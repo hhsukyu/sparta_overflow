@@ -11,10 +11,17 @@ const choiceRepository = new ChoiceRepository(prisma);
 const choiceService = new ChoiceService(choiceRepository);
 const choiceController = new ChoiceController(choiceService);
 
-// 답변 채택 리스트 API
+// 답변 채택 API
 router.post(
   "/questions/:questionId/answers/:answerId",
   needSign,
   choiceController.postChoice
+);
+
+// 답변 채택 취소 API
+router.patch(
+  "/questions/:questionId/answers/:answerId",
+  needSign,
+  choiceController.patchChoice
 );
 export default router;
