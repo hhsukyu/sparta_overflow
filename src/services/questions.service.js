@@ -39,7 +39,15 @@ export class QuestionsService {
       };
     });
   };
-
+  // 질문글 작성하기 유효성
+  validatePostQuestion = async (title, content) => {
+    if (!title) {
+      throw new Error("제목을 입력해주세요");
+    }
+    if (!content) {
+      throw new Error("내용을 입력해주세요");
+    }
+  };
   // 질문글 작성하기
   createQuestion = async (userId, title, content, author) => {
     const createQuestion = await this.questionsRepository.createdQuestion(

@@ -37,6 +37,7 @@ export class QuestionsController {
       const userId = res.locals.user;
       const author = userId.nickname;
       const { title, content } = req.body;
+      await this.questionsService.validatePostQuestion(title, content);
       const questions = await this.questionsService.createQuestion(
         userId,
         title,
