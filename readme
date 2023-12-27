@@ -10,7 +10,7 @@
 
 ## 기술 스택
 
-Java Script, Node.js, 웹 프레임워크(Express), 패키지 매니저(npm), 모듈 시스템(CommonJS), 데이터베이스(AWS RDS, MySQL), ORM(Prisma)
+Java Script, Node.js, 웹 프레임워크(Express), 패키지 매니저(npm), 모듈 시스템(ES6), 데이터베이스(AWS RDS, MySQL), ORM(Prisma)
 
 # 설계
 
